@@ -1,4 +1,4 @@
-pub fn get_input() -> [u32; 2000] {
+pub fn get_input() -> [i32; 2000] {
     [
         123,
         126,
