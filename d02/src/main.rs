@@ -2,7 +2,7 @@ use std::fs::read_to_string;
 
 fn main() {
 	let input =
-		read_to_string("input.txt")
+		read_to_string("example.txt")
 		.expect("Something went wrong reading the input file");
 
 	let commands = input
@@ -29,9 +29,12 @@ fn first(commands: Vec<&str>) {
 		let command = split.next().unwrap();
 		let number = split.next().unwrap().parse::<i32>().unwrap();
 		
-		if      command == "down"    { depth += number; }
-		else if command == "up"      { depth -= number; }
-		else if command == "forward" { position_x += number; }
+		match command {
+			"down"    => depth += number,
+			"up"      => depth -= number,
+			"forward" => position_x += number,
+			_ => unreachable!()
+		}
 	}
 
 	println!("Horizontal position: {}", position_x);
@@ -49,11 +52,14 @@ fn second(commands: Vec<&str>) {
 		let command = split.next().unwrap();
 		let number = split.next().unwrap().parse::<i32>().unwrap();
 		
-		if      command == "down"    { aim += number; }
-		else if command == "up"      { aim -= number; }
-		else if command == "forward" {
-			position_x += number;
-			depth += aim * number;
+		match command {
+			"down"    => aim += number,
+			"up"      => aim -= number,
+			"forward" => {
+				position_x += number;
+				depth += aim * number;
+			},
+			_ => unreachable!()
 		}
 	}
 
